@@ -2,11 +2,13 @@
   "name": "qooktree1.github.io",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://qooktree1.github.io/",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "serve": "npx http-server out"
   },
   "dependencies": {
     "react": "^18",
