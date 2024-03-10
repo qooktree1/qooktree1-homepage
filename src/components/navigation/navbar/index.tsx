@@ -1,15 +1,37 @@
 import React from "react";
 import Link from "next/link";
-import Logo from "./Logo";
-import Button from "./Button";
+
+const TAB_MENUS = ["about", "services", "contacts"] as const;
+
+const TAB_OBJECTS = {
+  about: "About Us",
+  services: "Services",
+  contacts: "Contacts",
+} as const;
+
+interface TabProps {
+  text: keyof typeof TAB_OBJECTS;
+}
+
+const Tabs = ({ text }: TabProps) => {
+  return (
+    <li>
+      <Link href={`/${text}`}>
+        <p className="hover:underline">{TAB_OBJECTS[text]}</p>
+      </Link>
+    </li>
+  );
+};
 
 const Navbar = ({ toggle }: { toggle: () => void }) => {
   return (
     <>
-      <div className="w-full h-20 bg-emerald-800 sticky top-0">
+      <div className="w-full h-20 bg-main-light sticky top-0">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
-            <Logo />
+            <Link href="/">
+              <h1>{"Hominy's Website"}</h1>
+            </Link>
             <button
               type="button"
               className="inline-flex items-center md:hidden"
@@ -27,26 +49,11 @@ const Navbar = ({ toggle }: { toggle: () => void }) => {
                 />
               </svg>
             </button>
-            <ul className="hidden md:flex gap-x-6 text-white ">
-              <li>
-                <Link href="/about">
-                  <p>About Us</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services">
-                  <p>Services</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/contacts">
-                  <p>Contacts</p>
-                </Link>
-              </li>
+            <ul className="hidden md:flex gap-x-6 text-textBlack-default">
+              {TAB_MENUS.map((tab) => (
+                <Tabs key={tab} text={tab} />
+              ))}
             </ul>
-            <div className="hidden md:block">
-              <Button />
-            </div>
           </div>
         </div>
       </div>
